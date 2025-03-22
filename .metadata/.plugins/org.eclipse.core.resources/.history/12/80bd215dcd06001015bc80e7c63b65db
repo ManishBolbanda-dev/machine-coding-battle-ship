@@ -19,6 +19,7 @@ import com.mb.battlefield.enums.AXIS;
 import com.mb.battlefield.enums.FireResult;
 import com.mb.battlefield.exception.PositionOutOfBoundException;
 import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.BattleFiled;
 import com.mb.battlefield.model.Coordinate;
 import com.mb.battlefield.model.Player;
 import com.mb.battlefield.model.PlayerFieldBoundary;
@@ -47,6 +48,7 @@ public class GameService {
 	
 	private  Player PLAYER_A ;
 	private  Player PLAYER_B;
+	private  BattleFiled battleField ;
 	
 	
 	
