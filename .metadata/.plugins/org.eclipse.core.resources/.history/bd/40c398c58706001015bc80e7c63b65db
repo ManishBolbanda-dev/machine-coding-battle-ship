@@ -1,0 +1,7 @@
+package com.mb.battlefield.service;
+
+import com.mb.battlefield.model.Player;
+
+public interface IPlayerService {
+	Player add(String name);
+}

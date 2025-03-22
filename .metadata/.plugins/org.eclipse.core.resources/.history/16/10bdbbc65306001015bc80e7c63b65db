@@ -1,0 +1,12 @@
+package com.mb.battlefield.model;
+
+import java.util.List;
+
+import lombok.Builder;
+
+@Builder
+public class Player {
+	private final String name;
+	private final List<E>
+	
+}

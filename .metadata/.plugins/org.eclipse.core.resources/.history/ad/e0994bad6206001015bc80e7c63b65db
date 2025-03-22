@@ -1,0 +1,11 @@
+package com.mb.battlefield.util;
+
+public class ConsolePrinter {
+	private final ConsolePrinter consolePrinter;
+	
+	public ConsolePrinter() {
+		if(consolePrinter == null) {
+			this.consolePrinter = new ConsolePrinter();
+		}
+	}
+}

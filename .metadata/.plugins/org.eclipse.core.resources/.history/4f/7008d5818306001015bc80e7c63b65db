@@ -1,0 +1,52 @@
+package com.mb.battlefield.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class InMemoryCoordinateDao implements ICoordinateDao{
+
+	private final Map<Long, Coordinate> coOrdinates; 
+	private Long incrementlSequence;
+	
+	public synchronized long getNextSequence() {
+		return incrementlSequence++;
+	}
+	
+	@Override
+	public Coordinate add(Coordinate coordinate, long shipId) {
+		Coordinate co = Coordinate.builder()
+				.id(getNextSequence())
+				.x(coordinate.getX())
+				.y(coordinate.getY())
+				.shipId(shipId)
+				.build();
+		coOrdinates.put(coordinate.getId(), coordinate);
+		return true;
+	}
+
+	@Override
+	public Coordinate getById(long id) {
+		return coOrdinates.get(id);
+	}
+
+	@Override
+	public List<Coordinate> getByPlayerId(long playerId) {
+		return coOrdinates.values().stream().filter(co -> co.getPlayerId() == playerId).toList();
+	}
+
+	@Override
+	public Coordinate getByShipId(long shipId) {
+		return coOrdinates.values().stream()
+				.filter(co -> co.getShipId() == shipId)
+				.findFirst()
+				.get();
+
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.mb.battlefield.service;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Queue;
+
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.util.ConsolePrinter;
+import com.mb.battlefield.validators.ShipPositionValidatorImpl;
+
+public class GameService {
+	private final int N ;
+	private final BattleFiled battleFiled ;
+	private final Player PLAYER_A ;
+	private final Player PLAYER_B;
+	
+	private final PlayerService playerService;
+	
+	private Queue<Player> playersQue;
+	
+	public GameService(int n, String playerA, String playerB) {
+		this.N = n;
+		battleFiled = new BattleFiled(n, new HashMap());
+		PLAYER_A = new Player("Rajesh", new ArrayList(), new HashSet());
+		PLAYER_B = new Player("Mohan", new ArrayList(), new HashSet());
+		playerService = new PlayerService(new ShipPositionValidatorImpl(battleFiled), ConsolePrinter.getPrinter());
+		playersQue =  new ArrayDeque();
+		
+		playersQue.add(PLAYER_A);
+		playersQue.add(PLAYER_B);
+	}
+	
+	public void addShips(int shipId, int playerA_X, playerA_Y, playerB_X, int playerB_Y) {
+		
+	}
+
+}

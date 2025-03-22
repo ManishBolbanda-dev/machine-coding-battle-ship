@@ -1,0 +1,13 @@
+package com.mb.battlefield.dao;
+
+import java.util.List;
+
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Ship;
+
+public interface IShipDao {
+	Ship add(int size, long playerId, long coId);
+	Ship getById(long id);
+	List<Ship> getShipByPlayerId(long playerId);	
+	Coordinate getCoordinateByShipId(long shipId);
+}

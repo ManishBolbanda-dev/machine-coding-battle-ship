@@ -1,0 +1,11 @@
+package com.mb.battlefield.service;
+
+import com.mb.battlefield.model.Ship;
+
+public interface IShipService {
+	
+	Ship addShip(int size, long playerId, long coId, String shipLabel);
+	Ship getById(long id);
+
+
+}

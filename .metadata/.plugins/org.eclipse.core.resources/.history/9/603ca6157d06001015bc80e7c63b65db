@@ -1,0 +1,9 @@
+package com.mb.battlefield.dao;
+
+import com.mb.battlefield.model.Player;
+
+public interface IPlayerDao {
+	boolean add(Player player);
+	
+	
+}

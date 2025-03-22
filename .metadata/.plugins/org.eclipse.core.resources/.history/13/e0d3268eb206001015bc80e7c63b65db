@@ -1,0 +1,10 @@
+package com.mb.battlefield.strategy;
+
+public class PartiallyDestroyedStratergy implements ShipDestroyCheckStrategy {
+
+	@Override
+	public void isShipDestroed() {
+				
+	}
+
+}

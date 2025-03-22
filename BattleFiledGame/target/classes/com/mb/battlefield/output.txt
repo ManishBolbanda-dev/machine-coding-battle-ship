@@ -1,0 +1,14 @@
+input: gameService.addPlayers("John", "Ruven");
+		gameService.addShips(1, 2, 1, 1, 4, 3);
+		
+output:S
+Player: John's Turns. Fired At (3, 2)	: MISS Remaining Ships of Player-Ruven is 1. 
+Player: Ruven's Turns. Fired At (2, 2)	: HIT Remaining Ships of Player-John is 0. 
+WInner is Ruven
+---viewing grid---
+EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, 
+EMPTY, A-SH1, A-SH1, EMPTY, EMPTY, EMPTY, 
+EMPTY, A-SH1, A-SH1, EMPTY, EMPTY, EMPTY, 
+EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, 
+EMPTY, EMPTY, EMPTY, B-SH1, B-SH1, EMPTY, 
+EMPTY, EMPTY, EMPTY, B-SH1, B-SH1, EMPTY, 

@@ -1,0 +1,18 @@
+package com.mb.battlefield.service;
+
+import com.mb.battlefield.dao.ICoordinateDao;
+import com.mb.battlefield.model.Coordinate;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class CoordinateService implements ICoordinateService {
+
+	private final ICoordinateDao coordinateDao;
+	
+	@Override
+	public Coordinate add(int x, int y) {
+		return coordinateDao.add(new Coordinate(x, y));
+	}
+
+}

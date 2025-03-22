@@ -1,0 +1,44 @@
+package com.mb.battlefield.util;
+
+import java.util.HashMap;
+
+import com.mb.battlefield.dao.ICoordinateDao;
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.dao.InMemoPlayerDao;
+import com.mb.battlefield.dao.InMemoryCoordinateDao;
+import com.mb.battlefield.dao.InMemoryShipDao;
+import com.mb.battlefield.service.IPlayerService;
+import com.mb.battlefield.service.IShipService;
+import com.mb.battlefield.service.PlayerService;
+import com.mb.battlefield.validators.ShipPositionValidatorImpl;
+
+import lombok.Getter;
+
+
+public class BeanFactory {
+	
+	//services
+		private final IPlayerService playerService;
+		private final IShipService shipService;
+		
+//		private final BattleFiledService battleFiledService;
+		
+		// dao
+		private final ICoordinateDao coordinateDao;
+		private final IShipDao shipDao ;
+		private final IPlayerDao playerDao ;
+		
+		private final ConsolePrinter consolePrinter;
+	
+	public BeanFactory(int n) {
+		// dao
+		coordinateDao = new InMemoryCoordinateDao(new HashMap<>(), 0l);
+		shipDao = new InMemoryShipDao(new HashMap<>(), 0l, coordinateDao);
+		playerDao = new InMemoPlayerDao(new HashMap<>(), 0l, shipDao, coordinateDao);
+		
+		playerService = new PlayerService(new ShipPositionValidatorImpl(n), null, playerDao)
+	}
+	
+	
+}

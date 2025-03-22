@@ -1,0 +1,127 @@
+package com.mb.battlefield.service;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+import com.mb.battlefield.dao.ICoordinateDao;
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.dao.InMemoPlayerDao;
+import com.mb.battlefield.dao.InMemoryCoordinateDao;
+import com.mb.battlefield.dao.InMemoryShipDao;
+import com.mb.battlefield.exception.PositionOutOfBoundException;
+import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.OpponenetBoundary;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.strategy.AttackPositionStratagey;
+import com.mb.battlefield.util.BeanFactory;
+import com.mb.battlefield.util.ConsolePrinter;
+import com.mb.battlefield.validators.ShipPositionValidatorImpl;
+import com.mb.battlefield.validators.ShipPostionValidators;
+
+import lombok.AllArgsConstructor;
+
+
+public class GameService {
+	private final int N ;
+	private final String SH, DASH ;
+
+	private final IPlayerService playerService;
+	private final IShipService shipService;
+	private final ICoordinateService coordinateService;
+	private final ShipPostionValidators shipPostionValidator;
+//	private final BattleFiledService battleFiledService;
+
+	
+	private final ConsolePrinter printer;
+	
+	private  Player PLAYER_A ;
+	private  Player PLAYER_B;
+	private  BattleFiled battleField ;
+	
+	
+	
+	private final AttackPositionStratagey attackPositionStratagey;
+	private final BeanFactory beanFactory ;
+	private final  Queue<Player> playersQue;
+	private Map<Long, String> playerIdTolabel ;
+	private Map<Long, OpponenetBoundary> playerIdToOpponentBnd;
+	
+	public GameService(int n) {
+		this.N = n;
+		SH = "SH";
+		DASH = "-";
+		playersQue =  new ArrayDeque<>();
+		beanFactory = new BeanFactory(n);
+
+		playerService = beanFactory.getPlayerService();
+		shipService = beanFactory.getShipService();
+		coordinateService = beanFactory.getCoordinateService();
+		shipPostionValidator = beanFactory.getShipPostionValidators();
+		attackPositionStratagey = beanFactory.getAttackPositionStratagey();
+		
+//		battleFiledService = new BattleFiledService();
+		
+		printer = beanFactory.getConsolePrinter();
+		
+	}
+	
+	public void addPlayers(String playerAName, String playerBName) {
+		PLAYER_A = playerService.add(playerAName);
+		PLAYER_B = playerService.add(playerBName);
+		playersQue.add(PLAYER_A);
+		playersQue.add(PLAYER_B);
+		playerIdTolabel = Map.of(PLAYER_A.getId(), "A", PLAYER_B.getId(), "B");		
+	}
+	public Ship addShip(int labelId, int shipSize, int x, int y, Player player) {
+		try {
+			if(!shipPostionValidator.validate(x, y, shipSize, playerService.getPlayerShips(player.getId()))) {
+				return null;
+			}
+		} catch (PositionOutOfBoundException e) {
+			printer.log("exception: "+e.getMessage()); 
+		} catch (PositionOverlapException e) {
+			printer.log("exception: "+e.getMessage()); 
+		}
+		Coordinate savedCoId = coordinateService.add(x, y);
+		String shipLable = playerIdTolabel.get(player.getId()).concat(DASH).concat(SH).concat(String.valueOf(labelId));
+		return shipService.addShip(shipSize, player.getId(), savedCoId.getId(), shipLable);
+	}
+	
+	public void viewPlaytersAndShips() {
+		List<Player> allPlayers = playerService.getAll();
+		allPlayers.forEach(p -> {
+			printer.log("Player: "+p.getName());
+			playerService.getPlayerShips(p.getId()).forEach(sh -> printer.log("   has ship at "+coordinateService.getByShipId(sh.getId())));
+		});
+	}
+		
+	public void addShips(int shipLabelId, int shipSize, int playerA_X, int playerA_Y, int playerB_X, int playerB_Y) {
+		
+		try {
+			addShip(shipLabelId, shipSize, playerA_X, playerA_Y, PLAYER_A);
+			addShip(shipLabelId, shipSize, playerB_X, playerB_Y, PLAYER_B);
+			
+		}catch (Exception e) {
+			printer.log("Exception while adding Ship: "+e.getMessage());
+		}
+		
+	}
+	
+	public void startGame() {
+		while(true) {
+			Player playing = playersQue.remove();
+			Coordinate ranPosToAttack = attackPositionStratagey.
+			
+		}
+	}
+	
+}

@@ -1,0 +1,33 @@
+package com.mb.battlefield.dao;
+
+import java.util.List;
+
+import com.mb.battlefield.model.Coordinate;
+
+public class InMemoryCoordinateDao implements ICoordinateDao{
+
+	@Override
+	public boolean add(Coordinate coordinate) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Coordinate getById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Coordinate> getByPlayerId(long playerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Coordinate> getByShipId(long shipId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

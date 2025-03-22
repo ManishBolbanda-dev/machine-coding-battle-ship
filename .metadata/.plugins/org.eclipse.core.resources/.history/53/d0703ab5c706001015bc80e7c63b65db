@@ -1,0 +1,12 @@
+//package com.mb.battlefield.model;
+//
+//import lombok.AllArgsConstructor;
+//import lombok.Builder;
+//import lombok.Getter;
+//
+//
+//@Getter
+//@AllArgsConstructor
+//public abstract class Warship {
+//	private final String id;
+//}

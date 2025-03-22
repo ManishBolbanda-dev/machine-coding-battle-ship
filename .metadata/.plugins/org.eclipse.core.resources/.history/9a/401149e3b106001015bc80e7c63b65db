@@ -1,0 +1,74 @@
+package com.mb.battlefield.service;
+
+import java.util.List;
+
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.enums.FireResult;
+import com.mb.battlefield.exception.PositionOutOfBoundException;
+import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.util.ConsolePrinter;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class PlayerService implements IPlayerService {
+	
+	private final ConsolePrinter printer;
+	private final IPlayerDao playerDao;
+	private final ICoordinateService coordinateService;
+	private final IShipService shipService;
+	private final ShipDestroyCheckStrategy shipdestroyCheck;
+	
+	
+
+
+
+	@Override
+	public Player add(String name) {
+		Player player = Player.builder()
+				.name(name)
+				.build();
+		return playerDao.add(player);
+	}
+
+
+	@Override
+	public List<Ship> getPlayerShips(long playerId) {
+		return playerDao.getShipsForPlayer(playerId);
+	}
+
+
+	@Override
+	public List<Coordinate> getAttackedPositions(long playerId) {
+		return playerDao.getCordinateForPlayer(playerId);
+	}
+
+
+	@Override
+	public Player getPlayerById(long id) {
+		return playerDao.getById(id);
+	}
+
+
+	@Override
+	public List<Player> getAll() {
+		return playerDao.getAll();
+	}
+
+
+	@Override
+	public void attackOnOpponentPosition(Coordinate randomPosToAttack, Player opponenetPlayer) {
+		// save postion in attacked postion.
+		Coordinate destroyedCo = coordinateService.addDestroyedCo(randomPosToAttack.getX(), randomPosToAttack.getY(), opponenetPlayer.getId());
+		// check if there was any ship at that position if yes mark as destroyed.
+		// hit or miss
+		Ship ship =  shipService.doesShipExistAtAttackPosition(randomPosToAttack);
+		FireResult fireResult = ship == null ? FireResult.MISS : FireResult.HIT;
+			
+		}
+		
+	}
+}

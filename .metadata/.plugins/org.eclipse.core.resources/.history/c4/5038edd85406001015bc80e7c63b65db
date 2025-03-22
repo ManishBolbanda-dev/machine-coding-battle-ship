@@ -1,0 +1,19 @@
+package com.mb.battlefield.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+
+@Getter
+public class Ship extends Warship {
+	private final Coordinate topLeft;
+	
+	public Ship(String id, Coordinate co) {
+		super(id);
+		this.topLeft = co;
+	}
+
+	
+
+}

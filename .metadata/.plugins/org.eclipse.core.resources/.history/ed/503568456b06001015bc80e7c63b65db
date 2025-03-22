@@ -1,0 +1,5 @@
+package com.mb.battlefield.strategy;
+
+public interface AttackPositionStratagey {
+
+}

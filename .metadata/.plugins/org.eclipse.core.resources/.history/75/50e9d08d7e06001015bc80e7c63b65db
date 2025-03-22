@@ -1,0 +1,58 @@
+package com.mb.battlefield.dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+
+public class InMemoPlayerDao implements IPlayerDao{
+	// use ShipDao
+	
+	private final Map<Long, Player> players ; 
+	private Long incrementlSequence;
+	
+	private final IShipDao ship
+	
+	public InMemoPlayerDao() {
+		players = new HashMap<>();
+		incrementlSequence = 1l;
+	}
+	public synchronized long getNextSequence() {
+		return incrementlSequence++;
+	}
+	
+	@Override
+	public boolean add(Player player) {
+		players.put(player.getId(), player);
+		return true;
+	}
+	@Override
+	public boolean update(Player player) {
+		players.put(player.getId(), player);
+		return true;
+	}
+	@Override
+	public Player getById(long id) {
+		return players.get(id);
+	}
+	@Override
+	public List<Ship> getShipsForPlayer(long playerId) {
+		
+	}
+	@Override
+	public List<Coordinate> getCordinateForPlayer(long playerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	//get ships
+	
+	//ge player
+	
+//	
+
+}

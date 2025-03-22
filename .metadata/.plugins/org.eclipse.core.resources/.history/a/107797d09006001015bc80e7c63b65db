@@ -1,0 +1,99 @@
+package com.mb.battlefield.util;
+
+import java.util.HashMap;
+
+import com.mb.battlefield.dao.ICoordinateDao;
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.dao.InMemoPlayerDao;
+import com.mb.battlefield.dao.InMemoryCoordinateDao;
+import com.mb.battlefield.dao.InMemoryShipDao;
+import com.mb.battlefield.service.IPlayerService;
+import com.mb.battlefield.service.IShipService;
+import com.mb.battlefield.service.PlayerService;
+import com.mb.battlefield.service.ShipService;
+import com.mb.battlefield.validators.ShipPositionValidatorImpl;
+import com.mb.battlefield.validators.ShipPostionValidators;
+
+import lombok.Getter;
+
+
+public class BeanFactory {
+	
+	//services
+		private  IPlayerService playerService;
+		private  IShipService shipService;
+		
+//		private  BattleFiledService battleFiledService;
+		
+		// dao
+		private  ICoordinateDao coordinateDao;
+		private  IShipDao shipDao ;
+		private  IPlayerDao playerDao ;
+		
+		private  ConsolePrinter consolePrinter;
+		private  ShipPostionValidators shipPostionValidators;
+		private int boardSize;
+	
+	public BeanFactory(int n) {
+		this.boardSize = n;
+//		coordinateDao = new InMemoryCoordinateDao(new HashMap<>(), 0l);
+//		shipDao = new InMemoryShipDao(new HashMap<>(), 0l, coordinateDao);
+//		
+//		
+//		playerService = new PlayerService(new ShipPositionValidatorImpl(n), null, playerDao)
+	}
+
+	public IPlayerService getPlayerService() {
+		if(playerService == null) {
+			playerService = new PlayerService(getShipPostionValidators(), getConsolePrinter(), getPlayerDao());
+		}
+		return playerService;
+	}
+
+	public IShipService getShipService() {
+		if(shipService == null) {
+			shipService = new ShipService(getShipDao());
+		}
+		return shipService;
+	}
+
+	public ICoordinateDao getCoordinateDao() {
+		if(coordinateDao == null) {
+			coordinateDao = new InMemoryCoordinateDao(new HashMap<>(), 0l);
+		}
+		return coordinateDao;
+	}
+
+	public IShipDao getShipDao() {
+		if(this.shipDao == null) {
+			this.shipDao =  new InMemoryShipDao(new HashMap<>(), 0l, getCoordinateDao());
+		}
+		return shipDao;
+	}
+
+	public IPlayerDao getPlayerDao() {
+		if(playerDao == null) {
+			playerDao = new InMemoPlayerDao(new HashMap<>(), 0l, shipDao, coordinateDao);
+		}
+		return playerDao;
+	}
+
+	public ConsolePrinter getConsolePrinter() {
+		if(consolePrinter == null) {
+			consolePrinter = ConsolePrinter.getPrinter();
+		}
+		return consolePrinter;
+	}
+
+	public ShipPostionValidators getShipPostionValidators() {
+		if(shipPostionValidators == null) {
+			shipPostionValidators = new ShipPositionValidatorImpl(boardSize);
+		}
+		return shipPostionValidators;
+	}
+	
+	
+	
+	
+}

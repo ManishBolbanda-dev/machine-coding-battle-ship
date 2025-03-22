@@ -1,0 +1,65 @@
+package com.mb.battlefield.service;
+
+import java.util.List;
+
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.exception.PositionOutOfBoundException;
+import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.util.ConsolePrinter;
+import com.mb.battlefield.validators.ShipPostionValidators;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class PlayerService implements IPlayerService {
+	
+	private final ShipPostionValidators shipPositionValidators;
+	private final ConsolePrinter printer;
+	private final IPlayerDao playerDao;
+	
+	
+//	//dao
+//	public boolean addShipForPlayer(Player player, Ship ship) throws PositionOutOfBoundException, PositionOverlapException {
+//		if(!shipPositionValidators.validate(ship, player)) {
+//			return false;
+//		}
+//		player.getShips().add(ship);
+//		return true;
+//	}
+
+
+	@Override
+	public Player add(String name) {
+		Player player = Player.builder()
+				.name(name)
+				.build();
+		return playerDao.add(player);
+	}
+
+
+	@Override
+	public List<Ship> getPlayerShips(long playerId) {
+		return playerDao.getShipsForPlayer(playerId);
+	}
+
+
+	@Override
+	public List<Coordinate> getAttackedPositions(long playerId) {
+		return playerDao.getCordinateForPlayer(playerId);
+	}
+
+
+	@Override
+	public Player getPlayerById(long id) {
+		return playerDao.getById(id);
+	}
+
+
+	@Override
+	public List<Player> getAllPlayers() {
+		return playerDao.getAll();
+	}
+}

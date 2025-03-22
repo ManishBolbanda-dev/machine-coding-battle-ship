@@ -1,0 +1,8 @@
+package com.mb.battlefield.validators;
+
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Ship;
+
+public interface ShipPostionValidators {
+	public boolean validate(Ship ship, BattleFiled battleFiled);
+}

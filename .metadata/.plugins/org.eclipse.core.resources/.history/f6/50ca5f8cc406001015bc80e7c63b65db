@@ -1,0 +1,64 @@
+package com.mb.battlefield.service;
+
+import java.util.List;
+
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.enums.FireResult;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.strategy.ShipDestroyCheckStrategy;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class ShipService implements IShipService{
+	
+	private final IShipDao shipDao;
+	private final ShipDestroyCheckStrategy shipdestroyCheck;
+	
+	@Override
+	public Ship addShip(int size, long playerId, long coId, String shipLabel) {
+		return shipDao.add(new Ship(playerId, coId, size, shipLabel));
+	}
+
+	@Override
+	public Ship getById(long id) {
+		return shipDao.getById(id);
+	}
+
+	@Override
+	public Ship doesShipExistAtAttackPosition(Coordinate randomPosToAttack, long playerId) {
+		List<Ship> ships = shipDao.getShipByPlayerId(playerId);
+
+		Ship affectedShip = ships.stream()
+		    .filter(sh -> {
+		        Coordinate shipCoId = shipDao.getCoordinateByShipId(sh.getId());
+		        return doesOverlap(randomPosToAttack.getX(), shipCoId.getX(), shipCoId.getX() + sh.getSize() ) &&
+		               doesOverlap(randomPosToAttack.getY(), shipCoId.getY(), shipCoId.getY() + sh.getSize());
+		    })
+		    .findFirst()  // Returns an Optional<Ship>
+		    .orElse(null); // If no ship is hit, return null
+		return affectedShip;
+
+	}
+
+	
+	
+	private boolean doesOverlap(int x, int x_start, int size) {
+		return x>=x_start && x < (x_start+size);
+	}
+
+	@Override
+	public List<Ship> getAllDestroyedShips(List<Ship> ships, Player player) {
+		List<Ship> destroyedShips =  shipdestroyCheck.getDestroyedShips(ships, player);
+		return destroyedShips;
+	}
+
+	@Override
+	public List<Ship> getPlayerShips(long playerId) {
+		
+		return shipDao.getShipByPlayerId(playerId);
+	}
+
+}

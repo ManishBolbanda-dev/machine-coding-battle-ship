@@ -1,0 +1,13 @@
+package com.mb.battlefield.dao;
+
+import java.util.List;
+
+import com.mb.battlefield.model.Coordinate;
+
+public interface ICoordinateDao {
+	boolean add(Coordinate coordinate);
+	Coordinate getById(long id);
+	List<Coordinate> getByPlayerId(long playerId);
+	List<Coordinate> getByShipId(long shipId);
+	
+}

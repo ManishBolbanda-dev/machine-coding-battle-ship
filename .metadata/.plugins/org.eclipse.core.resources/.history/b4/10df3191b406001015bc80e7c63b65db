@@ -1,0 +1,13 @@
+package com.mb.battlefield.strategy;
+
+import java.util.List;
+
+import com.mb.battlefield.enums.FireResult;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Ship;
+
+public interface ShipDestroyCheckStrategy {
+	
+	List<Ship> getDestroyedShips(List<Ship> ships);
+
+}

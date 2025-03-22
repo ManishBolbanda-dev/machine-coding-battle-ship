@@ -1,0 +1,24 @@
+package com.mb.battlefield.dao;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.mb.battlefield.model.Player;
+
+public class InMemoPlayerDao implements IPlayerDao{
+	// use ShipDao
+	
+	private final Map<Long, Player> playerIdToPlayer =new HashMap<>(); // via con
+
+	@Override
+	public boolean add(Player player) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	//get ships
+	
+	//ge player
+	
+//	
+
+}

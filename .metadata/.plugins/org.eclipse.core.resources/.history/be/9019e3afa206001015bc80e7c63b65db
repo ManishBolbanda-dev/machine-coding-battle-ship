@@ -1,0 +1,10 @@
+package com.mb.battlefield.service;
+
+import com.mb.battlefield.model.Coordinate;
+
+public interface ICoordinateService {
+	
+	Coordinate add(int x, int y);
+	Coordinate getByShipId(long shipId);
+
+}

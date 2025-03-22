@@ -1,0 +1,21 @@
+package com.mb.battlefield.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+
+@Builder
+@AllArgsConstructor
+@Getter
+public class Ship  {
+	
+	private final long id; // Auto Incremented
+	private final int playerId;
+	private final long topLeftCoId; // one-to-one
+	private final int size;
+}

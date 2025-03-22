@@ -1,0 +1,18 @@
+package com.mb.battlefield.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@AllArgsConstructor
+@Getter
+public class Coordinate {
+	private final long id;
+	private final int x;
+	private final int y;
+	private final long playerId;
+	@Setter
+	private final long shipId;
+}

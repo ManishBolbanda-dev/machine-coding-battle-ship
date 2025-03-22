@@ -1,0 +1,91 @@
+package com.mb.battlefield.service;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Queue;
+
+import com.mb.battlefield.dao.ICoordinateDao;
+import com.mb.battlefield.dao.IPlayerDao;
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.dao.InMemoPlayerDao;
+import com.mb.battlefield.dao.InMemoryCoordinateDao;
+import com.mb.battlefield.dao.InMemoryShipDao;
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.util.BeanFactory;
+import com.mb.battlefield.util.ConsolePrinter;
+import com.mb.battlefield.validators.ShipPositionValidatorImpl;
+
+import lombok.AllArgsConstructor;
+
+
+public class GameService {
+	private final int N ;
+	//services
+	private final IPlayerService playerService;
+	private final IShipService shipService;
+//	private final BattleFiledService battleFiledService;
+	
+	// dao
+	ICoordinateDao coordinateDao;
+	IShipDao shipDao ;
+	IPlayerDao playerDao ;
+	
+	private final ConsolePrinter printer;
+	
+//	private final Player PLAYER_A ;
+//	private final Player PLAYER_B;
+//	private final BattleFiled battleFiled ;
+	
+	
+	
+//	private final AttackPositionStratagey;
+	private final BeanFactory beanFactory ;
+	private final  Queue<Player> playersQue;
+	
+	public GameService(int n, String playerA, String playerB) {
+		this.N = n;
+		playersQue =  new ArrayDeque<>();
+		beanFactory = new BeanFactory(n);
+		// dao
+		coordinateDao = beanFactory.getCoordinateDao();
+		shipDao = beanFactory.getShipDao();
+		playerDao = beanFactory.getPlayerDao();
+		
+//		battleFiled = new BattleFiled(n, new HashMap<>());
+		playerService = beanFactory.getPlayerService();
+		shipService = beanFactory.getShipService();
+		
+//		battleFiledService = new BattleFiledService();
+		
+		printer = beanFactory.getConsolePrinter();
+		
+	
+	}
+		
+	public void addShips(int shipId, int shipSize, int playerA_X, int playerA_Y, int playerB_X, int playerB_Y) {
+		Ship shipA = new Ship("SH-A-"+shipId, new Coordinate(playerA_X, playerA_Y), shipSize);
+		Ship shipB = new Ship("SH-B-"+shipId, new Coordinate(playerB_X, playerB_Y), shipSize);
+		try {
+			playerService.addShipForPlayer(PLAYER_A, shipA);
+			playerService.addShipForPlayer(PLAYER_B, shipB);
+			battleFiledService.addShipForPlayer(battleFiled, PLAYER_A, shipA);
+			battleFiledService.addShipForPlayer(battleFiled, PLAYER_B, shipB);
+		}catch (Exception e) {
+			printer.log("Exception while adding Ship: "+e.getMessage());
+		}
+		
+	}
+	
+	public void startGame() {
+		while(true) {
+			Player playing = playersQue.remove();
+			
+		}
+	}
+	
+}

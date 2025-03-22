@@ -1,0 +1,52 @@
+package com.mb.battlefield.validators;
+
+import com.mb.battlefield.exception.PositionOutOfBoundException;
+import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.service.ICoordinateService;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+//
+@AllArgsConstructor
+public class ShipPositionValidatorImpl implements ShipPostionValidators {
+
+
+	private final int battleFieldSize;
+	private final ICoordinateService coordinateService;
+	
+//	 validate position on board
+//	validate overlap
+	@Override
+	public boolean validate(int placedX, int placedY, int size, List<Ship> ships) throws PositionOutOfBoundException, PositionOverlapException {
+		if(isOutOfRangeOfField(placedX, placedY) ) {
+			throw new PositionOutOfBoundException("Enter Position with in Battle field");
+		}else if(isShipPositionOverlaping(placedX, placedY, ships) 
+				|| isShipPositionOverlaping(placedX+size, placedY+size, ships)){
+			throw new PositionOverlapException("Ship is overlapping for placement X: "+placedX+" and Y: "+placedY);
+		}
+		return true;
+	}
+
+	private boolean isShipPositionOverlaping(int x, int y, List<Ship> ships) {
+		boolean isOverlapping = ships.stream()
+			    .anyMatch(sh -> {
+			        Coordinate shipCoId = coordinateService.getByShipId(sh.getId());
+			        return doesOverlap(x, shipCoId.getX(), shipCoId.getX() + sh.getSize()) &&
+			               doesOverlap(y, shipCoId.getY(), shipCoId.getY() + sh.getSize());
+			    });
+		return isOverlapping;
+}
+
+	private boolean isOutOfRangeOfField(int x, int y) {
+		return x < 0 ||  x >= battleFieldSize 
+				|| y < 0 ||  y >= battleFieldSize;
+}
+
+	private boolean doesOverlap(int x, int x_start, int size) {
+		return x>=x_start && x < (x_start+size);
+	}
+
+}

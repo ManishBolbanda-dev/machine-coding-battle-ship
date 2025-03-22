@@ -1,0 +1,14 @@
+package com.mb.battlefield.validators;
+
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Ship;
+
+public class ShipPositionValidatorImpl implements ShipPostionValidators {
+
+	@Override
+	public boolean validate(Ship ship, BattleFiled battleFiled) {
+		
+		return false;
+	}
+
+}

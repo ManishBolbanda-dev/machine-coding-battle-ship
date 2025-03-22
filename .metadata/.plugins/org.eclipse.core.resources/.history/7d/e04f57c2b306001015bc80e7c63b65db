@@ -1,0 +1,19 @@
+package com.mb.battlefield.strategy;
+
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.service.ICoordinateService;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class PartiallyDestroyedStratergy implements ShipDestroyCheckStrategy {
+
+	private final ICoordinateService coordinateService;
+	
+	@Override
+	public void processIfShipDestroyed(Ship ship) {
+		
+				
+	}
+
+}

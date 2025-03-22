@@ -1,0 +1,22 @@
+package com.mb.battlefield.strategy;
+
+import java.util.Random;
+
+import com.mb.battlefield.model.Coordinate;
+import com.mb.battlefield.model.Player;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class RandomAttackPositionStrategy implements AttackPositionStratagey{
+	private final Random random ;
+	@Override
+	public Coordinate getRandomPositionInFieldA(Player playerA) {
+		random.
+	}
+	@Override
+	public Coordinate getrandompositionB() {
+		
+	}
+
+}

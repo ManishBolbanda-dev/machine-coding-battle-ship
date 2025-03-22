@@ -1,0 +1,7 @@
+package com.mb.battlefield.model;
+
+public class Ship {
+	
+	private final cordinate;
+
+}

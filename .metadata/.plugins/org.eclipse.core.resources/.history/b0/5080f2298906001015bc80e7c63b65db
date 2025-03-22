@@ -1,0 +1,24 @@
+package com.mb.battlefield.service;
+
+import com.mb.battlefield.dao.IShipDao;
+import com.mb.battlefield.model.Ship;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class ShipService implements IShipService{
+	
+	private final IShipDao shipDao;
+	
+	@Override
+	public Ship addShip(int size, long playerId, long coId) {
+		return shipDao.add(ship);
+	}
+
+	@Override
+	public Ship getById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

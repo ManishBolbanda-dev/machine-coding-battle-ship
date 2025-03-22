@@ -1,0 +1,7 @@
+package com.mb.battlefield.strategy;
+
+import com.mb.battlefield.model.Coordinate;
+
+public interface AttackPositionStratagey {
+	public Coordinate get();
+}

@@ -1,0 +1,42 @@
+package com.mb.battlefield.validators;
+
+import com.mb.battlefield.exception.PositionOutOfBoundException;
+import com.mb.battlefield.exception.PositionOverlapException;
+import com.mb.battlefield.model.BattleFiled;
+import com.mb.battlefield.model.Player;
+import com.mb.battlefield.model.Ship;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class ShipPositionValidatorImpl implements ShipPostionValidators {
+
+	private final BattleFiled battleField;
+	
+//	 validate position on board
+//	validate overlap
+	@Override
+	public boolean validate(Ship ship, Player player) throws Exception {
+		if(isOutOfRangeOfField(ship.getTopLeftCo().getX(), ship.getTopLeftCo().getY()) ) {
+			throw new PositionOutOfBoundException("Enter Position with in Battle field");
+		}else {
+			player.getShips().forEach(sh -> {
+				if(doesOverlap(ship.getTopLeftCo().getX(), sh.getTopLeftCo().getX(), battleField.getSize()) 
+						|| doesOverlap(ship.getTopLeftCo().getY(), sh.getTopLeftCo().getY(), battleField.getSize())  ) {
+					throw new PositionOverlapException("Ship id "+ship.getId()+" overlap with ship id "+sh.getId());
+				}
+			});;
+		}
+		return false;
+	}
+
+	private boolean isOutOfRangeOfField(int x, int y) {
+		return x < 0 ||  x >= battleField.getSize() 
+				|| y < 0 ||  y >= battleField.getSize();
+}
+
+	private boolean doesOverlap(int x, int x_start, int size) {
+		return x>x_start && x < (x_start+size);
+	}
+
+}

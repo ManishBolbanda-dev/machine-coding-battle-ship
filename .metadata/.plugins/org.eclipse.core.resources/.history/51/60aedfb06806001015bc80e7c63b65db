@@ -1,0 +1,7 @@
+package com.mb.battlefield.runner;
+
+public class BattleFieldGameExecutor {
+	public static void main(String[] args) {
+		System.out.println("hello, battle field");
+	}
+}

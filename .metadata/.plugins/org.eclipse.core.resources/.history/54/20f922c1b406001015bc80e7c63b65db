@@ -1,0 +1,26 @@
+package com.mb.battlefield.strategy;
+
+import java.util.List;
+
+import com.mb.battlefield.enums.FireResult;
+import com.mb.battlefield.model.Ship;
+import com.mb.battlefield.service.ICoordinateService;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class PartiallyDestroyedStratergy implements ShipDestroyCheckStrategy {
+
+//	if ship is partially dstroyed then consider it as fully non-functional and mark it as destroyed
+	
+	private final ICoordinateService coordinateService;
+
+	@Override
+	public List<Ship> getDestroyedShips(List<Ship> ships) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

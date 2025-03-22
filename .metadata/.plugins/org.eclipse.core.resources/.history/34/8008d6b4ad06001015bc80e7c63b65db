@@ -1,0 +1,6 @@
+package com.mb.battlefield.model;
+
+public enum AXIS {
+	X,
+	Y;
+}

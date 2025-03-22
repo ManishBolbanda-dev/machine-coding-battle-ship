@@ -1,0 +1,38 @@
+package com.mb.battlefield.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.mb.battlefield.model.Ship;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class InMemoryShipDao implements IShipDao {
+	
+	private final HashMap<Long, Ship> ships;
+	private Long incrementlSequence;
+	
+	public synchronized long getNextSequence() {
+		return incrementlSequence++;
+	}
+
+	@Override
+	public boolean add(Ship ship) {
+		ships.put(ship.getId(), ship);
+		return false;
+	}
+
+	@Override
+	public Ship getById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Ship> getShipByPlayerId(long playerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

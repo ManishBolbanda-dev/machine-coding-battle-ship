@@ -1,0 +1,9 @@
+package com.mb.battlefield.model;
+
+import lombok.Builder;
+
+@Builder
+public class Player {
+	private final long id;
+	
+}

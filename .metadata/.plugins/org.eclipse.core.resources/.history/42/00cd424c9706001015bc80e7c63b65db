@@ -1,0 +1,10 @@
+package com.mb.battlefield.runner;
+
+import com.mb.battlefield.service.GameService;
+
+public class BattleFieldGameExecutor {
+	public static void main(String[] args) {
+		System.out.println("hello, battle field");
+		GameService gameService = new GameService(10, "Suresh", "Ramesh");
+	}
+}

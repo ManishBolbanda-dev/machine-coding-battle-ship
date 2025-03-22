@@ -1,0 +1,8 @@
+package com.mb.battlefield.service;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class PlayerService {
+	
+}

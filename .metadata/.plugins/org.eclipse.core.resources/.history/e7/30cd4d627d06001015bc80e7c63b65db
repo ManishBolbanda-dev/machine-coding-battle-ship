@@ -1,0 +1,12 @@
+package com.mb.battlefield.dao;
+
+import java.util.List;
+
+import com.mb.battlefield.model.Player;
+
+public interface IPlayerDao {
+	boolean add(Player player);
+	boolean update(Player player);
+	Player getById(long id);
+	
+}
